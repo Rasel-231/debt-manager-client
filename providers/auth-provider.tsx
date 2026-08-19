@@ -16,8 +16,8 @@ interface AuthContextValue {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  login: (email: string, password: string, next?: string) => Promise<void>;
+  register: (name: string, email: string, password: string, next?: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -51,24 +51,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, [fetchProfile]);
 
-  const login = useCallback(async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string, next?: string) => {
     const res = await apiClient.post<{ user: User }>('/auth/login', {
       email,
       password,
     });
     setUser(res.data.user);
-    router.replace('/home');
+    router.replace(next || '/home');
   }, [router]);
 
   const register = useCallback(
-    async (name: string, email: string, password: string) => {
+    async (name: string, email: string, password: string, next?: string) => {
       const res = await apiClient.post<{ user: User }>('/auth/register', {
         name,
         email,
         password,
       });
       setUser(res.data.user);
-      router.replace('/home');
+      router.replace(next || '/home');
     },
     [router]
   );

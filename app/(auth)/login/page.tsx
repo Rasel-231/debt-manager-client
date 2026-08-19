@@ -20,8 +20,9 @@ function LoginForm() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    const next = searchParams.get('next');
     try {
-      await login(email, password);
+      await login(email, password, next || undefined);
     } catch (err) {
       toast.error(getErrorMessage(err));
       setIsSubmitting(false);
