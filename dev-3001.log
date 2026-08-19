@@ -1,0 +1,28 @@
+
+> frontend@0.1.0 dev
+> next dev -p 3001
+
+▲ Next.js 16.3.1 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.0.103:3001
+- Environments: .env.local
+✓ Ready in 7.4s
+✓ Running next.config.ts took 2.3s
+⚠ Slow filesystem detected. The benchmark took 300ms. If \\?\F:\MyProgramming\debt-manager\frontend\.next\dev is a network drive, consider moving it to a local folder.
+See more: https://nextjs.org/docs/app/guides/local-development
+○ Compiling proxy ...
+
+○ Compiling /home ...
+/*! 🌼 daisyUI 5.7.17 */
+Node.js fs rename failed after 101 retries with error Error: EPERM: operation not permitted, rename 'F:\MyProgramming\debt-manager\frontend\.next\dev\server\server-reference-manifest.js.tmp.2z8qh1byyky' -> 'F:\MyProgramming\debt-manager\frontend\.next\dev\server\server-reference-manifest.js'
+⨯ Error: EPERM: operation not permitted, rename 'F:\MyProgramming\debt-manager\frontend\.next\dev\server\server-reference-manifest.js.tmp.2z8qh1byyky' -> 'F:\MyProgramming\debt-manager\frontend\.next\dev\server\server-reference-manifest.js'
+    at ignore-listed frames {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'rename',
+  path: 'F:\\MyProgramming\\debt-manager\\frontend\\.next\\dev\\server\\server-reference-manifest.js.tmp.2z8qh1byyky',
+  dest: 'F:\\MyProgramming\\debt-manager\\frontend\\.next\\dev\\server\\server-reference-manifest.js'
+}
+ GET /home 200 in 13.7s (next.js: 8.3s, proxy.ts: 2.3s, application-code: 3.1s)
+○ Compiling /_error ...
+ GET /login?next=%2Fhome 500 in 35.5s (next.js: 30.5s, proxy.ts: 18ms, application-code: 5.0s)
