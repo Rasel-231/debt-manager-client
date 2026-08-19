@@ -34,7 +34,7 @@ export const TRANSACTION_TYPE_BADGE: Record<TransactionType, string> = {
   PAYMENT: 'badge-success',
 };
 
-export const CRITICAL_DAYS = 7;
+export const CRITICAL_DAYS = 30;
 
 export const CURRENCY = '৳';
 
