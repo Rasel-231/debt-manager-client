@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from '@/providers/auth-provider';
 import { getErrorMessage } from '@/lib/utils';
 import { MOTION_PAGE, MOTION_ITEM, MOTION_STAGGER } from '@/lib/motion';
+import { Field, inputWithIconClass } from '@/components/ui/Field';
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -41,79 +42,76 @@ export default function RegisterPage() {
   return (
     <motion.div {...MOTION_PAGE}>
       <motion.div {...MOTION_STAGGER} className="flex flex-col gap-6">
-        <motion.div variants={MOTION_ITEM} className="text-center">
-          <h1 className="text-2xl font-bold">Create your account</h1>
-          <p className="text-sm text-slate-400 mt-1">
+        <motion.div variants={MOTION_ITEM} className="text-center space-y-1.5">
+          <p className="text-[10px] uppercase tracking-[0.4em] text-cyan-400/80">
+            Get started
+          </p>
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+            Create your account
+          </h1>
+          <p className="text-sm text-slate-400">
             Start tracking loans — cash with product or cash only.
           </p>
         </motion.div>
 
         <motion.form variants={MOTION_ITEM} onSubmit={submit} className="flex flex-col gap-4">
-          <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-slate-300">Full name</span>
-            <div className="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <input
-                type="text"
-                required
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/10 transition-all"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="John Doe"
-              />
-            </div>
-          </label>
+          <Field label="Full name" htmlFor="name" icon={User}>
+            <input
+              id="name"
+              type="text"
+              required
+              autoComplete="name"
+              className={inputWithIconClass}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="John Doe"
+            />
+          </Field>
 
-          <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-slate-300">Email</span>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <input
-                type="email"
-                required
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/10 transition-all"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-              />
-            </div>
-          </label>
+          <Field label="Email" htmlFor="email" icon={Mail}>
+            <input
+              id="email"
+              type="email"
+              required
+              autoComplete="email"
+              className={inputWithIconClass}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+            />
+          </Field>
 
-          <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-slate-300">Password</span>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <input
-                type="password"
-                required
-                minLength={6}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/10 transition-all"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="At least 6 characters"
-              />
-            </div>
-          </label>
+          <Field label="Password" htmlFor="password" icon={Lock} hint="Minimum 6 characters">
+            <input
+              id="password"
+              type="password"
+              required
+              minLength={6}
+              autoComplete="new-password"
+              className={inputWithIconClass}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="At least 6 characters"
+            />
+          </Field>
 
-          <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-slate-300">Confirm password</span>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <input
-                type="password"
-                required
-                minLength={6}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/10 transition-all"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Repeat password"
-              />
-            </div>
-          </label>
+          <Field label="Confirm password" htmlFor="confirmPassword" icon={Lock}>
+            <input
+              id="confirmPassword"
+              type="password"
+              required
+              minLength={6}
+              autoComplete="new-password"
+              className={inputWithIconClass}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Repeat password"
+            />
+          </Field>
 
           <button
             type="submit"
-            className="w-full py-2.5 rounded-xl font-semibold text-white gradient-bg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-2.5 rounded-xl font-semibold text-white gradient-bg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-60"
             disabled={isSubmitting}
           >
             {isSubmitting ? (
@@ -121,14 +119,14 @@ export default function RegisterPage() {
             ) : (
               <UserPlus className="w-4 h-4" />
             )}
-            {isSubmitting ? 'Creating account...' : 'Register'}
+            {isSubmitting ? 'Creating account...' : 'Create account'}
           </button>
         </motion.form>
 
         <motion.p variants={MOTION_ITEM} className="text-center text-sm text-slate-400">
           Already have an account?{' '}
-          <Link href="/login" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
-            Log in
+          <Link href="/login" className="text-cyan-300 hover:text-cyan-200 font-semibold transition-colors">
+            Sign in
           </Link>
         </motion.p>
       </motion.div>

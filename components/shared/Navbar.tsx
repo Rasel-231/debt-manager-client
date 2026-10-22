@@ -24,8 +24,8 @@ export function Navbar() {
   const { user, isAuthenticated, logout, isLoading } = useAuth();
 
   return (
-    <header className="sticky top-0 z-30 glass border-b border-white/5">
-      <div className="flex items-center px-4 md:px-6 h-16 gap-3">
+    <header className="sticky top-0 z-30 border-b border-white/5 bg-[#050816]/80 backdrop-blur-2xl">
+      <div className="flex items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 gap-3">
         <div className="flex-none lg:hidden">
           <label
             htmlFor="app-drawer"
@@ -38,17 +38,17 @@ export function Navbar() {
 
         <div className="flex-1 flex items-center gap-3">
           <Link href={isAuthenticated ? '/home' : '/'} className="flex items-center gap-2.5">
-            <span className="p-2 rounded-xl gradient-bg glow-cyan">
+            <span className="p-2 rounded-2xl gradient-bg glow-cyan">
               <ShieldCheck className="w-4 h-4 text-white" />
             </span>
-            <span className="text-lg font-bold tracking-tight text-white hidden sm:inline">
+            <span className="text-lg font-semibold tracking-tight text-white hidden sm:inline">
               Debt<span className="gradient-text">Manager</span>
             </span>
           </Link>
         </div>
 
         {isAuthenticated && (
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1 rounded-full border border-white/5 bg-white/3 px-1 py-1">
             {NAV_LINKS.map(({ href, label, icon: Icon }) => {
               const isActive = pathname === href || pathname.startsWith(`${href}/`);
               return (
@@ -56,10 +56,10 @@ export function Navbar() {
                   key={href}
                   href={href}
                   className={cn(
-                    'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all',
+                    'flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all',
                     isActive
-                      ? 'bg-cyan-500/15 text-cyan-400'
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-cyan-500/15 text-cyan-300'
+                      : 'text-slate-400 hover:text-white'
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -74,18 +74,18 @@ export function Navbar() {
           {isLoading ? (
             <span className="loading loading-spinner loading-sm text-slate-400" />
           ) : isAuthenticated ? (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <div className="hidden sm:flex flex-col items-end">
-                <span className="text-sm font-semibold text-white">{user?.name}</span>
-                <span className="text-[10px] font-medium text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-md">
+                <span className="text-sm font-medium text-white">{user?.name}</span>
+                <span className="text-[10px] font-medium text-cyan-300 bg-cyan-500/12 px-2 py-0.5 rounded-full">
                   {user?.role}
                 </span>
               </div>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={logout}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-rose-400 hover:bg-rose-500/10 border border-rose-500/20 transition-all"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium text-rose-300 hover:bg-rose-500/10 border border-rose-500/25 transition-all"
                 aria-label="Logout"
               >
                 <LogOut className="w-4 h-4" />
@@ -95,7 +95,7 @@ export function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white gradient-bg hover:opacity-90 transition-opacity"
+              className="flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-white gradient-bg hover:opacity-90 transition-opacity"
             >
               <LogIn className="w-4 h-4" />
               Login

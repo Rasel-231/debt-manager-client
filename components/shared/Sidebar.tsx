@@ -52,14 +52,14 @@ export function Sidebar() {
     exact ? pathname === href : pathname === href || pathname.startsWith(href);
 
   return (
-    <aside className="flex flex-col min-h-full w-64 bg-[#0a0f1e] border-r border-white/5 p-4">
-      <div className="mb-4 px-2">
+    <aside className="flex flex-col min-h-full w-72 bg-[#050816]/95 backdrop-blur-2xl border-r border-white/5 p-4">
+      <div className="mb-6 px-2">
         <div className="flex items-center gap-2.5">
-          <span className="p-2 rounded-xl gradient-bg glow-cyan">
+          <span className="p-2.5 rounded-2xl gradient-bg glow-cyan">
             <Banknote className="w-4 h-4 text-white" />
           </span>
           <div>
-            <p className="font-bold text-white leading-tight">Debt Manager</p>
+            <p className="font-semibold text-white leading-tight tracking-tight">Debt Manager</p>
             <p className="text-[11px] text-slate-500">
               {user?.name} · {user?.role}
             </p>
@@ -67,7 +67,7 @@ export function Sidebar() {
         </div>
       </div>
 
-      <nav className="flex flex-col gap-0.5 flex-1">
+      <nav className="flex flex-col gap-1 flex-1">
         {NAV_ITEMS.map((group) => {
           const visibleItems = group.items.filter(
             (item) => !item.adminOnly || user?.role === 'ADMIN'
@@ -76,37 +76,52 @@ export function Sidebar() {
           return (
             <div key={group.section ?? 'main'}>
               {group.section && (
-                <p className="text-[10px] uppercase tracking-widest text-slate-600 font-semibold px-3 mt-4 mb-2">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-slate-600 font-semibold px-3 mt-5 mb-2">
                   {group.section}
                 </p>
               )}
-              {visibleItems.map(({ href, label, icon: Icon, exact }) => (
-              <Link
-                key={href}
-                href={href}
-                className={cn(
-                  'flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-all',
-                  isActive(href, exact)
-                    ? 'bg-cyan-500/10 text-cyan-400'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
-                )}
-              >
-                <Icon className="w-4 h-4 shrink-0" />
-                <span className="truncate">{label}</span>
-              </Link>
-            ))}
-          </div>
-        );
+              {visibleItems.map(({ href, label, icon: Icon, exact }) => {
+                const active = isActive(href, exact);
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={cn(
+                      'group flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-all relative overflow-hidden',
+                      active
+                        ? 'text-cyan-300'
+                        : 'text-slate-400 hover:text-white'
+                    )}
+                  >
+                    {active && (
+                      <span className="absolute inset-0 bg-gradient-to-r from-cyan-500/12 to-transparent" />
+                    )}
+                    {active && (
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-full bg-cyan-400" />
+                    )}
+                    <Icon
+                      className={cn(
+                        'w-4 h-4 shrink-0 relative z-10',
+                        active ? 'text-cyan-300' : 'text-slate-500 group-hover:text-white'
+                      )}
+                    />
+                    <span className="truncate relative z-10">{label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          );
         })}
       </nav>
 
-      <div className="mt-4 pt-4 border-t border-white/5">
+      <div className="mt-6 pt-4 border-t border-white/5">
         <button
           onClick={logout}
-          className="flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-500/5 transition-all"
+          className="group flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-rose-300 transition-all relative overflow-hidden"
         >
-          <LogOut className="w-4 h-4" />
-          Logout
+          <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-r from-rose-500/10 to-transparent" />
+          <LogOut className="w-4 h-4 relative z-10" />
+          <span className="relative z-10">Logout</span>
         </button>
       </div>
     </aside>

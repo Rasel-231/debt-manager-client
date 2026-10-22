@@ -37,11 +37,14 @@ export default function DashboardPage() {
 
   return (
     <motion.div {...MOTION_PAGE} className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <LayoutDashboard className="w-5 h-5 text-cyan-400" /> Dashboard
+      <div className="flex flex-col gap-1.5">
+        <p className="text-[10px] uppercase tracking-[0.4em] text-cyan-400/80">Overview</p>
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-white flex items-center gap-2">
+          <LayoutDashboard className="w-5 h-5 text-cyan-300" /> Dashboard
         </h1>
-        <p className="text-sm text-slate-400">Financial overview and quick actions.</p>
+        <p className="text-sm text-slate-400">
+          Track balances, due dates and key metrics at a glance.
+        </p>
       </div>
 
       <motion.div {...MOTION_STAGGER} className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -79,19 +82,27 @@ export default function DashboardPage() {
           variants={MOTION_ITEM}
           initial="hidden"
           animate="visible"
-          className="glass-card overflow-hidden"
+          className="glass-card overflow-hidden relative"
         >
-          <div className="p-5">
-            <h2 className="font-semibold text-white">Monthly New Loans</h2>
-            <p className="text-xs text-slate-500 mb-4">Last 6 months</p>
+          <div className="absolute inset-x-0 -top-10 h-24 bg-gradient-to-br from-cyan-500/12 to-transparent blur-2xl" />
+          <div className="relative p-5 sm:p-6">
+            <div className="flex items-start justify-between gap-3 mb-5">
+              <div>
+                <h2 className="font-semibold text-white">Monthly new loans</h2>
+                <p className="text-xs text-slate-500 mt-1">Last 6 months</p>
+              </div>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500">
+                Trend
+              </span>
+            </div>
             {summary ? (
               trend.length ? (
-                <BarChart data={trend} height={180} />
+                <BarChart data={trend} height={190} />
               ) : (
                 <EmptyState title="No data yet" description="Loans you add will appear here." />
               )
             ) : (
-              <div className="skeleton h-40 w-full rounded-xl" />
+              <div className="skeleton h-44 w-full rounded-xl" />
             )}
           </div>
         </motion.section>
@@ -100,28 +111,37 @@ export default function DashboardPage() {
           variants={MOTION_ITEM}
           initial="hidden"
           animate="visible"
-          className="glass-card overflow-hidden"
+          className="glass-card overflow-hidden relative"
         >
-          <div className="p-5">
-            <h2 className="font-semibold text-white flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-rose-400" /> Emergency — Due within 7 days
-            </h2>
+          <div className="absolute inset-x-0 -top-10 h-24 bg-gradient-to-br from-rose-500/12 to-transparent blur-2xl" />
+          <div className="relative p-5 sm:p-6">
+            <div className="flex items-start justify-between gap-3 mb-5">
+              <div>
+                <h2 className="font-semibold text-white flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-rose-400" /> Due within 7 days
+                </h2>
+                <p className="text-xs text-slate-500 mt-1">Prioritize these payments</p>
+              </div>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-rose-400/80">
+                Critical
+              </span>
+            </div>
             {summary ? (
               critical.length ? (
-                <div className="flex flex-col gap-3 mt-4">
+                <div className="flex flex-col gap-3">
                   {critical.map((loan) => (
                     <div
                       key={loan.id}
-                      className="flex items-center justify-between gap-3 glass-card p-4 border-rose-500/20"
+                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-2xl border border-rose-500/25 bg-gradient-to-r from-rose-500/10 to-transparent p-4"
                     >
                       <div className="min-w-0">
-                        <p className="font-semibold text-white truncate">{loan.title}</p>
-                        <p className="text-sm text-rose-400 font-bold">
-                          {formatCurrency(loan.remainingAmount)}
+                        <p className="font-medium text-white truncate">{loan.title}</p>
+                        <p className="text-sm text-rose-300 font-semibold mt-1">
+                          {formatCurrency(loan.remainingAmount)} remaining
                         </p>
                       </div>
                       <button
-                        className="px-3 py-1.5 rounded-xl text-sm font-semibold text-white bg-rose-500 hover:bg-rose-400 transition-colors shrink-0 flex items-center gap-1.5"
+                        className="self-start sm:self-auto px-3.5 py-1.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-rose-500 to-pink-500 hover:opacity-90 transition-opacity shrink-0 flex items-center gap-1.5"
                         onClick={() => setPayingLoan(loan)}
                       >
                         <HandCoins className="w-3.5 h-3.5" /> Pay now
@@ -136,7 +156,7 @@ export default function DashboardPage() {
                 />
               )
             ) : (
-              <div className="skeleton h-40 w-full rounded-xl mt-4" />
+              <div className="skeleton h-44 w-full rounded-xl" />
             )}
           </div>
         </motion.section>
