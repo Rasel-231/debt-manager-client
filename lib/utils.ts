@@ -2,8 +2,8 @@ import { CURRENCY } from './constants';
 
 export function formatCurrency(amount: number): string {
   return `${CURRENCY}${amount.toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   })}`;
 }
 
