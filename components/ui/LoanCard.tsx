@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { CalendarDays, Wallet } from 'lucide-react';
-import type { Loan } from '@/types';
-import { daysUntil, formatCurrency, formatDate } from '@/lib/utils';
-import { StatusBadge, LoanTypeBadge } from './StatusBadge';
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { CalendarDays, Wallet } from "lucide-react";
+import type { Loan } from "@/types";
+import { daysUntil, formatCurrency, formatDate } from "@/lib/utils";
+import { StatusBadge, LoanTypeBadge } from "./StatusBadge";
 
 interface LoanCardProps {
   loan: Loan;
@@ -15,16 +15,18 @@ interface LoanCardProps {
 
 export function LoanCard({ loan, actions, highlight = false }: LoanCardProps) {
   const progress =
-    loan.amount > 0 ? Math.round(((loan.amount - loan.remainingAmount) / loan.amount) * 100) : 0;
+    loan.amount > 0
+      ? Math.round(((loan.amount - loan.remainingAmount) / loan.amount) * 100)
+      : 0;
   const days = daysUntil(loan.dueDate);
 
   return (
     <Link href={`/loans/${loan.id}`} className="group block h-full">
       <motion.div
         whileHover={{ y: -6 }}
-        transition={{ duration: 0.25, ease: 'easeOut' }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
         className={`glass-card p-5 h-full cursor-pointer relative overflow-hidden ${
-          highlight ? 'border-rose-500/35 glow-rose' : ''
+          highlight ? "border-rose-500/35 glow-rose" : ""
         }`}
       >
         {highlight && (
@@ -41,7 +43,8 @@ export function LoanCard({ loan, actions, highlight = false }: LoanCardProps) {
               </h3>
               <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
                 <Wallet className="w-3.5 h-3.5" />
-                {formatCurrency(loan.remainingAmount)} remaining of {formatCurrency(loan.amount)}
+                {formatCurrency(loan.remainingAmount)} remaining of{" "}
+                {formatCurrency(loan.amount)}
               </p>
             </div>
             <StatusBadge status={loan.status} />
@@ -79,8 +82,8 @@ export function LoanCard({ loan, actions, highlight = false }: LoanCardProps) {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className={`h-full rounded-full ${
                 progress === 100
-                  ? 'bg-gradient-to-r from-emerald-400 to-emerald-500'
-                  : 'bg-gradient-to-r from-cyan-400 to-violet-400'
+                  ? "bg-gradient-to-r from-emerald-400 to-emerald-500"
+                  : "bg-gradient-to-r from-cyan-400 to-violet-400"
               }`}
             />
           </div>
