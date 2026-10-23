@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Banknote,
   ClipboardList,
@@ -13,9 +13,9 @@ import {
   PackageSearch,
   PlusCircle,
   ShieldCheck,
-} from 'lucide-react';
-import { useAuth } from '@/providers/auth-provider';
-import { cn } from '@/lib/utils';
+} from "lucide-react";
+import { useAuth } from "@/providers/auth-provider";
+import { cn } from "@/lib/utils";
 
 interface NavItem {
   href: string;
@@ -26,22 +26,48 @@ interface NavItem {
 }
 
 const NAV_ITEMS: { section: string | null; items: NavItem[] }[] = [
-  { section: null, items: [
-    { href: '/home', label: 'Home', icon: HomeIcon, exact: true },
-    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-  ]},
-  { section: 'Loans', items: [
-    { href: '/loans?type=CASH_WITH_PRODUCT', label: 'Cash with Product', icon: PackageSearch },
-    { href: '/loans?type=CASH_ONLY', label: 'Cash Only', icon: CreditCard },
-    { href: '/transactions', label: 'Transaction History', icon: History },
-  ]},
-  { section: 'Actions', items: [
-    { href: '/loans/new', label: 'New Loan Entry', icon: PlusCircle },
-    { href: '/pay', label: 'Pay Loan Now', icon: ClipboardList },
-  ]},
-  { section: 'Admin', items: [
-    { href: '/admin/users', label: 'User Management', icon: ShieldCheck, adminOnly: true },
-  ]},
+  {
+    section: null,
+    items: [
+      { href: "/home", label: "Home", icon: HomeIcon, exact: true },
+      {
+        href: "/dashboard",
+        label: "Dashboard",
+        icon: LayoutDashboard,
+        exact: true,
+      },
+    ],
+  },
+  {
+    section: "Loans",
+    items: [
+      {
+        href: "/loans?type=CASH_WITH_PRODUCT",
+        label: "Cash with Product",
+        icon: PackageSearch,
+      },
+      { href: "/loans?type=CASH_ONLY", label: "Cash Only", icon: CreditCard },
+      { href: "/transactions", label: "Transaction History", icon: History },
+    ],
+  },
+  {
+    section: "Actions",
+    items: [
+      { href: "/loans/new", label: "New Loan Entry", icon: PlusCircle },
+      { href: "/pay", label: "Pay Loan Now", icon: ClipboardList },
+    ],
+  },
+  {
+    section: "Admin",
+    items: [
+      {
+        href: "/admin/users",
+        label: "User Management",
+        icon: ShieldCheck,
+        adminOnly: true,
+      },
+    ],
+  },
 ];
 
 export function Sidebar() {
@@ -59,7 +85,9 @@ export function Sidebar() {
             <Banknote className="w-4 h-4 text-white" />
           </span>
           <div>
-            <p className="font-semibold text-white leading-tight tracking-tight">Debt Manager</p>
+            <p className="font-semibold text-white leading-tight tracking-tight">
+              Debt Manager
+            </p>
             <p className="text-[11px] text-slate-500">
               {user?.name} · {user?.role}
             </p>
@@ -70,11 +98,11 @@ export function Sidebar() {
       <nav className="flex flex-col gap-1 flex-1">
         {NAV_ITEMS.map((group) => {
           const visibleItems = group.items.filter(
-            (item) => !item.adminOnly || user?.role === 'ADMIN'
+            (item) => !item.adminOnly || user?.role === "ADMIN",
           );
           if (visibleItems.length === 0) return null;
           return (
-            <div key={group.section ?? 'main'}>
+            <div key={group.section ?? "main"}>
               {group.section && (
                 <p className="text-[10px] uppercase tracking-[0.3em] text-slate-600 font-semibold px-3 mt-5 mb-2">
                   {group.section}
@@ -87,10 +115,10 @@ export function Sidebar() {
                     key={href}
                     href={href}
                     className={cn(
-                      'group flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-all relative overflow-hidden',
+                      "group flex items-center gap-2.5 px-2 py-2 rounded-xl text-sm font-medium transition-all relative overflow-hidden",
                       active
-                        ? 'text-cyan-300'
-                        : 'text-slate-400 hover:text-white'
+                        ? "text-cyan-300"
+                        : "text-slate-400 hover:text-white",
                     )}
                   >
                     {active && (
@@ -101,8 +129,10 @@ export function Sidebar() {
                     )}
                     <Icon
                       className={cn(
-                        'w-4 h-4 shrink-0 relative z-10',
-                        active ? 'text-cyan-300' : 'text-slate-500 group-hover:text-white'
+                        "w-4 h-4 shrink-0 relative z-10",
+                        active
+                          ? "text-cyan-300"
+                          : "text-slate-500 group-hover:text-white",
                       )}
                     />
                     <span className="truncate relative z-10">{label}</span>
